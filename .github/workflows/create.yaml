@@ -24,7 +24,7 @@ jobs:
         uses : actions/checkout@v4
       - name : Terraform init
         run : terraform init -backend-config=env-dev/state.tfvars
-      - name : Terraform plan
-        run : terraform plan -var-file=env-dev/main.tfvars -out=tfplan      
+      #- name : Terraform plan
+      #  run : terraform plan -var-file=env-dev/main.tfvars    
       - name : Terraform apply
         run : terraform apply -auto-approve tfplan    
