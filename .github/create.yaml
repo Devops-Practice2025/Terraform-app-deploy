@@ -1,0 +1,30 @@
+name : Infra for app by terraform
+on : [workflow_dispatch]
+jobs:
+  DEV-APPLY:
+    runs-on : ubuntu-latest
+    steps: 
+              #installs terraform
+      
+      - name : Terraform setup
+        uses : hashicorp/setup-terraform@v3
+        
+              #configure AWS
+
+      - name : Configure AWS 
+        uses : aws-actions/configure-aws-credentials@v4
+        with :
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: ${{secrets.AWS_REGION}}
+
+              # checkout code
+
+      - name : code checkout
+        uses : actions/checkout@4
+      - name : Terraform init
+        run : terraform init -backend-config=env-dev/state.tfvars
+      - name : Terraform plan
+        run : terraform plan -var-file=env-dev/main.tfvars -out=tfplan      
+      - name : Terraform apply
+        run : terraform apply -auto-approve tfplan    
