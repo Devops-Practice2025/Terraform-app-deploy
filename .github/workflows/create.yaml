@@ -21,7 +21,7 @@ jobs:
               # checkout code
 
       - name : code checkout
-        uses : actions/checkout@4
+        uses : actions/checkout@v4
       - name : Terraform init
         run : terraform init -backend-config=env-dev/state.tfvars
       - name : Terraform plan
