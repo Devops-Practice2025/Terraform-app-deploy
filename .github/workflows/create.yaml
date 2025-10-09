@@ -1,5 +1,10 @@
 name : Infra create for app by terraform
 on : [workflow_dispatch]
+
+env:
+  TF_LOG: DEBUG
+  TF_LOG_PATH: terraform-debug.log
+
 jobs:
   DEV-APPLY:
     runs-on : ubuntu-latest
