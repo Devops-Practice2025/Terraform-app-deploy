@@ -8,7 +8,7 @@ tags = {
 }
 resource "aws_subnet" "default_subnets" {
   count = length(var.default_subnets)
-  vpc_id = aws_vpc.main.id
+  vpc_id = aws_vpc.default.id
   cidr_block = var.default_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
   tags = {
