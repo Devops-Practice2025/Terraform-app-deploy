@@ -19,13 +19,14 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: ${{secrets.AWS_REGION}}
 
-      - name: Create S3 bucket
-        uses: aitorres/aws-s3-create-bucket@v1.2.0
-        with:
-          bucket-name: 'karthi-bucket2025' # Replace with your desired unique bucket name
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          acl: 'private' # Or other valid ACL values like 'public-read'
+      # - name: Create S3 bucket
+      #   uses: aitorres/aws-s3-create-bucket@v1.2.0
+      #   with:
+      #     bucket-name: 'karthi-bucket2025' # Replace with your desired unique bucket name
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{secrets.AWS_REGION}} # Specify your desired AWS region
+      #     acl: 'private' # Or other valid ACL values like 'public-read'
 
               
         # code checkout   
