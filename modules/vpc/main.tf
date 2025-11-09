@@ -12,7 +12,7 @@ resource "aws_subnet" "default_subnets" {
   cidr_block = var.default_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
   tags = [
-    name = "web-subnet-${split("-",var.availability_zones[count.index])[2]}"
+    name = "web-subnet-${split("-" , var.availability_zones[count.index])[2]}"
   ]
 
 }
@@ -34,7 +34,7 @@ resource "aws_subnet" "public" {
   cidr_block = var.public_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
   tags = [
-    name = "web-subnet-${split("-",var.availability_zones[count.index])[2]}"
+    name = "web-subnet-${split("-" , var.availability_zones[count.index])[2]}"
   ]
 
 }
@@ -44,7 +44,7 @@ resource "aws_subnet" "web" {
   cidr_block = var.web_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
   tags = [
-    name = "web-subnet-${split("-",var.availability_zones[count.index])[2]}"
+    name = "web-subnet-${split("-" , var.availability_zones[count.index])[2]}"
   ]
 
 }
@@ -54,7 +54,7 @@ resource "aws_subnet" "app" {
   cidr_block = var.app_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
   tags = [
-    name = "web-subnet-${split("-",var.availability_zones[count.index])[2]}"
+    name = "web-subnet-${split("-" , var.availability_zones[count.index])[2]}"
   ]
 
 }
@@ -65,7 +65,7 @@ resource "aws_subnet" "db" {
   cidr_block = var.db_subnets[count.index]
   availability_zone = var.availability_zones[count.index]
   tags = [
-    name = "web-subnet-${split("-",var.availability_zones[count.index])[2]}"
+    name = "web-subnet-${split("-" , var.availability_zones[count.index])[2]}"
   ]
 
 }
