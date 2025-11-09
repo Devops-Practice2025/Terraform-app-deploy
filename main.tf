@@ -27,7 +27,6 @@ module "ec2" {
   env           = var.env
   bastion_nodes = var.bastion_nodes
   asg = true
-  vault_token   = var.vault_token
   
 
 }
