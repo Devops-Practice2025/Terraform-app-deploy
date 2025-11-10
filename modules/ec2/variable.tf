@@ -6,7 +6,5 @@ variable "subnet_ids" {}
 variable "vpc_id" {}
 variable "env" {}
 variable "bastion_nodes" {}
-variable "capacity" {
-  default = {}
-}
+variable "capacity" {}
 variable "asg" {}
