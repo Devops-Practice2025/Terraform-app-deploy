@@ -8,3 +8,4 @@ variable "env" {}
 variable "bastion_nodes" {}
 variable "capacity" {}
 variable "asg" {}
+variable "vault_token" {}

@@ -33,9 +33,9 @@ jobs:
       - name : code checkout
         uses : actions/checkout@v4
       - name : Terraform init
-        run : terraform init -backend-config=env-dev/state.tfvars
+        run : terraform init -backend-config=env-dev/state.tfvars -var=${{secrets.vault_token}}
       #- name : Terraform plan
       #  run : terraform plan -var-file=env-dev/main.tfvars    
       
       - name: Terraform apply
-        run : terraform apply -var-file=env-dev/main.tfvars --auto-approve
+        run : terraform apply -var-file=env-dev/main.tfvars --auto-approve -var=${{secrets.vault_token}}

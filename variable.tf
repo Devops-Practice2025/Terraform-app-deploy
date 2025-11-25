@@ -4,3 +4,4 @@ variable "env" {}
 variable "bastion_nodes" {}
 variable "apps" {}
 variable "db" {}
+variable "vault_token" {}

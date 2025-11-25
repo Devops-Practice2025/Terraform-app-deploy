@@ -15,7 +15,7 @@ module "vpc" {
 }
 
 module "apps" {
-    depends_on = [ module.vpc]
+    depends_on = [ module.db]
   source = "./modules/ec2"
 
   for_each      = var.apps
@@ -29,6 +29,8 @@ module "apps" {
   env           = var.env
   bastion_nodes = var.bastion_nodes
   asg = true
+  vault_token = var.vault_token
+
   }
 module "db" {
     depends_on = [ module.vpc]
@@ -45,4 +47,6 @@ module "db" {
   env           = var.env
   bastion_nodes = var.bastion_nodes
   asg = false
+  vault_token = var.vault_token
+  
 }
