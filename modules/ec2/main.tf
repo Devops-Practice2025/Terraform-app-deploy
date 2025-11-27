@@ -165,6 +165,7 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_route53_record" "lb" {
+  count = var.asg ? 1:0
   zone_id = data.aws_route53_zone.existing.id
   name    = "${var.name}.${var.env}"
   type    = "CNAME"
