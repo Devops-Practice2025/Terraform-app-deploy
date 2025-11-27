@@ -10,7 +10,7 @@ module "vpc" {
   db_subnets         = var.vpc["db_subnets"]
   availability_zones = var.vpc["availability_zones"]
   default_cidr       = var.vpc["default_cidr"]
-  default_subnets    = var.vpc["default_subnets"]
+  
    
 }
 
