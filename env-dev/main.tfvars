@@ -9,24 +9,27 @@ vpc = {
   db_subnets         = ["10.10.6.0/24", "10.10.7.0/24"]
   availability_zones = ["us-east-1a", "us-east-1b"]
   default_cidr       = "10.1.0.0/16"
+  default_vpc_rt     = "rtb-085f965c93773f7e5"
 
 }
 apps = {
+
   frontend = {
-    subnet_ref    = "web"
-    instance_type = "t3.small"
-    allow_port    = 80
-    allow_sg_cidr = ["10.10.0.0/24", "10.10.1.0/24"]
+    subnet_ref       = "web"
+    instance_type    = "t3.small"
+    allow_port       = 80
+    allow_sg_cidr    = ["10.10.0.0/24", "10.10.1.0/24"]
     allow_lb_sg_cidr = ["0.0.0.0/0"]
-        capacity = {
+    capacity = {
       desired = 1
       max     = 1
-      min     = 1      
+      min     = 1
     }
-    lb_internal   = false
-    lb_subnet_ref = "public"
+    lb_ref           = "public"
+    lb_rule_priority = 1
   }
- catalogue = {
+
+  catalogue = {
     subnet_ref       = "app"
     instance_type    = "t3.small"
     allow_port       = 8080
@@ -37,9 +40,8 @@ apps = {
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    
+    lb_ref           = "private"
+    lb_rule_priority = 1
   }
 
   cart = {
@@ -47,15 +49,14 @@ apps = {
     instance_type    = "t3.small"
     allow_port       = 8080
     allow_sg_cidr    = ["10.10.4.0/24", "10.10.5.0/24"]
-    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24","10.10.4.0/24", "10.10.5.0/24"]
+    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24", "10.10.4.0/24", "10.10.5.0/24"]
     capacity = {
       desired = 1
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    
+    lb_ref           = "private"
+    lb_rule_priority = 2
   }
 
   user = {
@@ -63,15 +64,14 @@ apps = {
     instance_type    = "t3.small"
     allow_port       = 8080
     allow_sg_cidr    = ["10.10.4.0/24", "10.10.5.0/24"]
-    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24","10.10.4.0/24", "10.10.5.0/24"]
+    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24", "10.10.4.0/24", "10.10.5.0/24"]
     capacity = {
       desired = 1
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    
+    lb_ref           = "private"
+    lb_rule_priority = 3
   }
 
   shipping = {
@@ -79,15 +79,14 @@ apps = {
     instance_type    = "t3.small"
     allow_port       = 8080
     allow_sg_cidr    = ["10.10.4.0/24", "10.10.5.0/24"]
-    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24","10.10.4.0/24", "10.10.5.0/24"]
+    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24", "10.10.4.0/24", "10.10.5.0/24"]
     capacity = {
       desired = 1
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-    
+    lb_ref           = "private"
+    lb_rule_priority = 4
   }
 
   payment = {
@@ -95,19 +94,17 @@ apps = {
     instance_type    = "t3.small"
     allow_port       = 8080
     allow_sg_cidr    = ["10.10.4.0/24", "10.10.5.0/24"]
-    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24","10.10.4.0/24", "10.10.5.0/24"]
+    allow_lb_sg_cidr = ["10.10.2.0/24", "10.10.3.0/24", "10.10.4.0/24", "10.10.5.0/24"]
     capacity = {
       desired = 1
       max     = 1
       min     = 1
     }
-    lb_internal   = true
-    lb_subnet_ref = "app"
-   
+    lb_ref           = "private"
+    lb_rule_priority = 5
   }
+
 }
-
-
 db = {
   mongo = {
     subnet_ref    = "db"
@@ -134,4 +131,26 @@ db = {
     allow_sg_cidr = ["10.10.4.0/24", "10.10.5.0/24"]
   }
 }
-  
+  load_balancers = {
+  private = {
+    internal           = true
+    load_balancer_type = "application"
+    allow_lb_sg_cidr   = ["10.10.2.0/24", "10.10.3.0/24", "10.10.4.0/24", "10.10.5.0/24"]
+    subnet_ref         = "app"
+    acm_https_arn      = null
+    listener_port      = "80"
+    listener_protocol  = "HTTP"
+    ssl_policy         = null
+  }
+
+  public = {
+    internal           = false
+    load_balancer_type = "application"
+    allow_lb_sg_cidr   = ["0.0.0.0/0"]
+    subnet_ref         = "public"
+    acm_https_arn      = "arn:aws:acm:us-east-1:443370712476:certificate/d1f64369-3ca1-4b00-a74b-6253ca37696e"
+    listener_port      = "443"
+    listener_protocol  = "HTTPS"
+    ssl_policy         = "ELBSecurityPolicy-2016-08"
+  }
+}

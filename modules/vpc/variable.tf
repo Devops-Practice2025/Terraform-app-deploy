@@ -9,3 +9,6 @@ variable "default_cidr" {}
 variable "default_vpc" {
   default = "vpc-0de99df5b4dc430ff"
 }
+variable "default_vpc_rt" {
+  
+}

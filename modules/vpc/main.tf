@@ -72,6 +72,13 @@ resource "aws_vpc_peering_connection" "default_to_main" {
     auto_accept = true
 
 }
+
+#### Route from default to dev/prod vpc
+resource "aws_route" "default-vpc-peer-route" {
+  route_table_id            = var.default_vpc_rt
+  destination_cidr_block    = var.cidr
+  vpc_peering_connection_id = aws_vpc_peering_connection.main.id
+}
 ## Route tables
 resource "aws_route_table" "public" {
   count  = length(var.public_subnets)
